@@ -28,14 +28,13 @@ class MainWindow(QWidget):
 
     
     # @pyqtSlot(str)
-    # def ApplyMove(self, uci):
+    # def apply_move(self, uci):
     #     """
     #         BRIEF  Apply a move to the board
     #     """
     #     move = chess.Move.from_uci(uci)
     #     if move in self.legal_moves:
     #         self.push(move)
-    #         self.DrawBoard()
             
     #         print(self.fen())
     #         if not self.is_game_over():
@@ -49,7 +48,6 @@ class MainWindow(QWidget):
         if self.modified:
             self.chessboardSvg = chess.svg.board(self.board).encode("UTF-8")
             self.widgetSvg.load(self.chessboardSvg)
-            self.widgetSvg.load(self.chessboardSvg)
             self.modified = False
 
     def keyPressEvent(self, event):
@@ -57,7 +55,6 @@ class MainWindow(QWidget):
         if gey == Qt.Key.Key_D.value:
             sys.exit()
 
-   
     def LeftClickedBoard(self, event):
         """
             BRIEF  Check to see if they left-clicked on the chess board
@@ -72,24 +69,18 @@ class MainWindow(QWidget):
 
     @pyqtSlot(QWidget)
     def mousePressEvent(self, event):
-        """
-            BRIEF  Update the board state based on user clicks
-                    If the state changes, update the svg widget
-        """
         if self.LeftClickedBoard(event):
             this_click = self.GetClicked(event)
             
             if self.last_click:
                 if self.last_click != this_click:
                     uci = self.last_click + this_click
-                    self.ApplyMove(uci + self.GetPromotion(uci))
+                    # TODO: apply move
+                    # self.apply_move(uci + self.get_promotion(uci))
                 
             self.last_click = this_click
          
-    def GetClicked(self, event):
-        """
-            BRIEF  Get the algebraic notation for the clicked square
-        """
+    def get_clicked(self, event):
         top_left = self.svg_xy 
         file_i = int((event.pos().x() - top_left)/self.square_size)
         rank_i = 7 - int((event.pos().y() - top_left)/self.square_size)

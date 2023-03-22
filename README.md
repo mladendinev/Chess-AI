@@ -16,11 +16,8 @@ PyQt6
 # Goals:
 
 ### Implement min-max with alpha-beta pruning
-
 ### Design a sample NN, train and validate the model
-
 ### Play against a computer or AI bot, rendering
-
 
 # Notes
 The position of the piece on the board is represented in binary format
