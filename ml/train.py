@@ -5,11 +5,11 @@ import torch.nn as nn
 import torch.nn.functional as f
 from torch import optim
 from torch import save
-
+import torch
 
 class ChessValueDataset(Dataset):
     def __init__(self):
-        data = np.load("data/dataset_6000.npz")
+        data = np.load("data/dataset_6000.npz", allow_pickle=True)
         self.X = data["arr_0"]
         self.Y = data["arr_1"]
         print("loaded", self.X.shape, self.Y.shape)
@@ -71,23 +71,23 @@ class NeuralNetwork(nn.Module):
 
 if __name__ == '__main__':
     dataset = ChessValueDataset()
-    device = "cuda"
+    device = torch.device("mps")
     train_loader = DataLoader(dataset, batch_size=256, shuffle=True)
     model = NeuralNetwork()
     optimizer = optim.Adam(model.parameters())
     floss = nn.MSELoss()
-
-    model.train()
-
+    model = model.to(device)
+    
     for epoch in range(100):
         all_loss = 0
         num_loss = 0
         for idx, (input, labels) in enumerate(train_loader):
-            print(f"Feature batch shape: {input.size()}")
-            print(f"Labels batch shape: {labels.size()}")
+            print(idx)
+            # print(f"Feature batch shape: {input.size()}")
+            # print(f"Labels batch shape: {labels.size()}")
             labels = labels.unsqueeze(-1)
 
-            input, labels = input.to(device), labels.to(device)
+            input, labels = input.to(torch.device("mps")), labels.to(torch.device("mps"))
             input = input.float()
             labels = labels.float()
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
             # Forward Propagation: In forward prop, the NN makes its best guess about the correct output.
             # It runs the input data through each of its functions to make this guess.
             output = model(input)  # forward pass
-
+            
             loss = floss(output, labels)
 
             # Backward Propagation: In backprop, the NN adjusts its parameters proportionate to the error in its guess.

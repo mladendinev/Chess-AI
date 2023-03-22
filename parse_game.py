@@ -23,13 +23,12 @@ def read_dataset(file):
 
         for move in game.mainline_moves():
             board.push(move)
+            # print(board)
             serialized_board = Board(board).serialize()
+            # print(serialized_board)
             X_train.append(serialized_board)
             Y_train.append(end_result)
         count += 1
-
-        print(f"Game {count}, winner {board.outcome()}")
-
     return np.array(X_train), np.array(Y_train)
 
 

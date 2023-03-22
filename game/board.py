@@ -30,12 +30,11 @@ class Board(object):
 
         bstate = bstate.reshape(8, 8)
         neural_network_state = np.zeros((5, 8, 8), np.uint8)
-
+        
         neural_network_state[0] = (bstate >> 3) & 1
         neural_network_state[1] = (bstate >> 2) & 1
         neural_network_state[2] = (bstate >> 1) & 1
         neural_network_state[3] = (bstate >> 0) & 1
-
         neural_network_state[4] = (self.board.turn * 1.0)
 
         return neural_network_state

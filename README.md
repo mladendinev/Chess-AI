@@ -1,5 +1,9 @@
 # Chess-AI
 
+# GUI
+
+PyQt6
+
 # Workflow:
 
 1. Download chess database, preferably with games played by high ranked chess players.
@@ -9,11 +13,17 @@
 5. Train the NN model
 6. Use a value function returning the best possible move in the current state of the game.
 
-# Notes:
+# Goals:
 
-The position of the piece on the board is represented in binary
+# Implement min-max with alpha-beta pruning
 
-Board is represetned as - 8x8 - 64 bits
+# Design a sample NN, train and validate the model
+
+# Play against a computer or AI bot, rendering
+
+The position of the piece on the board is represented in binary format
+
+Board is represented as - 8x8 - 64 bits
 
 =====WHITE=====
 Pawn - 1
@@ -34,9 +44,9 @@ King - 14
 All the white pieces have their left most bit as 0 - (0001), (0010), (0011), (0100), (0101), (0110)
 All black pieces have their left most bit as 1 - (1001), (1010), (1011), (1100), (1101), (1110)
 
-The other three bits indicate the piece type independent of the colour.
+The other three bits indicate the piece type independent of the color.
 
-The left most bit identifies the colour of the piece - if 1 then black, else white. "&" is the AND bitwise operator - 1&1 == true(1) 0&1 == false (0)
+The left most bit identifies the color of the piece - if 1 then black, else white. "&" is the AND bitwise operator - 1&1 == true(1) 0&1 == false (0)
 
 ===== AI and Neural networks
 
